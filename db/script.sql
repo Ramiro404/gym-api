@@ -1,0 +1,9 @@
+INSERT INTO CLIENTS(name, lastname, birthdate, create_at) VALUES('Juan', 'Perez', DATE '1988-01-09', DATE '2022-01-12');
+INSERT INTO CLIENTS(name, lastname, birthdate, create_at) VALUES('Pedro', 'Perez', DATE '1988-01-09', DATE '2022-01-12');
+INSERT INTO CLIENTS(name, lastname, birthdate, create_at) VALUES('Gabriel', 'Standard', DATE '1988-01-09', DATE '2022-01-12');
+INSERT INTO CLIENTS(name, lastname, birthdate, create_at) VALUES('Julio', 'Juarez', DATE '1988-01-09', DATE '2022-01-12');
+INSERT INTO CLIENTS(name, lastname, birthdate, create_at) VALUES('Juan', 'Garbeil', DATE '1988-01-09', DATE '2022-01-12');
+INSERT INTO CLIENTS(name, lastname, birthdate, create_at) VALUES('Gael', 'Diver', DATE '1988-01-09', DATE '2022-01-12');
+INSERT INTO CLIENTS(name, lastname, birthdate, create_at) VALUES('Josefa', 'Ortiz', DATE '1988-01-09', DATE '2022-01-12');
+INSERT INTO CLIENTS(name, lastname, birthdate, create_at) VALUES('Marco', 'Polo', DATE '1988-01-09', DATE '2022-01-12');
+INSERT INTO CLIENTS(name, lastname, birthdate, create_at) VALUES('Rodrigo', 'Ramirez', DATE '1988-01-09', DATE '2022-01-12');

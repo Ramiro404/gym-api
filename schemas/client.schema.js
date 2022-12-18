@@ -4,6 +4,7 @@ const name = Joi.string();
 const lastname = Joi.string();
 const birthdate = Joi.date();
 const branchOfficeId = Joi.number().integer();
+const active = Joi.boolean();
 
 const clientId = Joi.number().integer();
 const membershipId = Joi.number().integer();
@@ -22,7 +23,8 @@ const updateClientSchema = Joi.object({
   name: name,
   lastname: lastname,
   birthdate: birthdate,
-  branchOfficeId: branchOfficeId
+  branchOfficeId: branchOfficeId,
+  active: active
 });
 
 const addPayment = Joi.object({

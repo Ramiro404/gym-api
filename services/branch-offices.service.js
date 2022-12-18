@@ -13,9 +13,7 @@ class BranchOfficeService {
   }
 
   async findOne(id) {
-    const user = await models.BranchOffice.findByPk(id, {
-      include: ['clients']
-    });
+    const user = await models.BranchOffice.findByPk(id);
     if (!user) {
       throw boom.notFound('user not found');
     }

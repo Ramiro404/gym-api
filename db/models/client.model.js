@@ -21,6 +21,11 @@ const ClientSchema = {
     allowNull: false,
     type: DataTypes.DATE
   },
+  active: {
+    allowNull: false,
+    type: DataTypes.BOOLEAN,
+    defaultValue: true,
+  },
   createdAt: {
     allowNull: false,
     type: DataTypes.DATE,

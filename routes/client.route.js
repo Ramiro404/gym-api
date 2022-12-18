@@ -40,8 +40,9 @@ router.get(
   validatorHandler(getIdSchema, "params"),
   async (req, res, next) => {
     try {
+      const { limit, offset, order, active } = req.query;
       const { id } = req.params;
-      res.json(await service.findByBranchOffice(id));
+      res.json(await service.findByBranchOffice(id, {limit , offset, order, active }));
     } catch (error) {
       next(error);
     }

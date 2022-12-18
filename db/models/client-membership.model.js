@@ -30,7 +30,7 @@ const ClientMembershipSchema = {
       key: "id"
     },
     onUpdate: "CASCADE",
-    onDelete: "SET NULL"
+    onDelete: "CASCADE"
   },
   membershipId: {
     field: "membership_id",
@@ -41,7 +41,7 @@ const ClientMembershipSchema = {
       key: "id"
     },
     onUpdate: "CASCADE",
-    onDelete: "SET NULL"
+    onDelete: "CASCADE"
   }
 };
 

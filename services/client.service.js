@@ -5,9 +5,9 @@ class ClientService {
   constructor() { }
 
   async create(data) {
-    const { name, lastname, birthdate, branchOfficeId, paymentDate, membershipId} = data;
-    const client = await models.Client.create({name,lastname, birthdate});
-    const acquittance = await models.ClientMembership.create({branchOfficeId, membershipId, paymentDate, clientId: client.id});
+    const { name, lastname, birthdate, branchOfficeId, paymentDate, membershipId } = data;
+    const client = await models.Client.create({ name, lastname, birthdate });
+    const acquittance = await models.ClientMembership.create({ branchOfficeId, membershipId, paymentDate, clientId: client.id });
     return { client, acquittance };
   }
 
@@ -15,16 +15,22 @@ class ClientService {
     return await models.Client.findAll();
   }
 
-  async findByBranchOffice(id) {
+  async findByBranchOffice(id, {limit , offset, order = 'last_payment'}) {
+    let queryString = `
+      SELECT Clients.id, Clients.name, Clients.lastname, Clients.birthdate, Clients.create_at,
+      MAX(CLIENT_PAYS_MEMBERSHIP.payment_date) as last_payment, active
+      FROM Clients
+      INNER JOIN CLIENT_PAYS_MEMBERSHIP ON Clients.id=CLIENT_PAYS_MEMBERSHIP.client_id
+      INNER JOIN MEMBERSHIPS ON MEMBERSHIPS.branch_office_id=${id}
+    `;
+    queryString += `
+        GROUP BY Clients.id
+        ORDER BY ${order}`;
+    if(limit && offset) {
+      queryString += `LIMIT ${limit} OFFSET ${offset}`;
+    }
     // eslint-disable-next-line no-unused-vars
-    const [results, metadata] = await sequelize.query(`
-    SELECT Clients.id, Clients.name, Clients.lastname, Clients.birthdate, Clients.create_at,
-    TO_CHAR(MAX(CLIENT_PAYS_MEMBERSHIP.payment_date)::date, 'dd/mm/yyyy') as last_payment
-    FROM Clients
-    INNER JOIN CLIENT_PAYS_MEMBERSHIP ON Clients.id=CLIENT_PAYS_MEMBERSHIP.client_id
-    INNER JOIN MEMBERSHIPS ON MEMBERSHIPS.branch_office_id=${id}
-    GROUP BY Clients.id;
-    `);
+    const [results, metadata] = await sequelize.query(queryString);
     return results;
   }
 
@@ -77,7 +83,12 @@ class ClientService {
 
   async delete(id) {
     const client = await this.findOne(id);
-    await client.destroy();
+    console.log(client);
+    if(client) {
+      await sequelize.query(`DELETE FROM client_pays_membership WHERE client_id=${id}`);
+      await client.destroy();
+    }
+
     return { id };
   }
 }
